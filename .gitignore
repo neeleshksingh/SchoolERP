@@ -1,1 +1,10 @@
 /node_modules
+/.env
+/.DS_Store
+/.idea
+/.vscode
+/.history
+/.angular
+/.angular-cache
+/.angular-builds
+/.angular-cli.json
