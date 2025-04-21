@@ -1,0 +1,9 @@
+:host ::ng-deep {
+    .p-tablist-tab-list {
+        flex-wrap: wrap;
+    }
+
+    .p-avatar img{
+      object-fit: cover;
+    }
+}

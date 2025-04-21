@@ -1,0 +1,140 @@
+{
+    "personalInfo": {
+      "id": "ST2023001",
+      "name": "Aryan Sharma",
+      "dateOfBirth": "2008-05-15",
+      "gender": "Male",
+      "photoUrl": "https://img.freepik.com/free-photo/close-up-portrait-curly-handsome-european-male_176532-8133.jpg?t=st=1744713345~exp=1744716945~hmac=87983f61ad1637c9a5841a3dc5a38fed3d399637f4c1fcc7039cce614552f16a&w=996",
+      "bloodGroup": "B+",
+      "admissionNumber": "CBSE/2023/1245",
+      "admissionDate": "2023-04-10",
+      "class": "10",
+      "section": "A",
+      "rollNumber": 15
+    },
+    "contactInfo": {
+      "email": "aryan.sharma@example.com",
+      "phone": "9876543210",
+      "address": {
+        "line1": "42, Green Park Colony",
+        "line2": "Sector 18",
+        "city": "New Delhi",
+        "state": "Delhi",
+        "pincode": "110076"
+      }
+    },
+    "parentInfo": {
+      "father": {
+        "name": "Rajesh Sharma",
+        "occupation": "Software Engineer",
+        "phone": "9876543211",
+        "email": "rajesh.sharma@example.com"
+      },
+      "mother": {
+        "name": "Priya Sharma",
+        "occupation": "Doctor",
+        "phone": "9876543212",
+        "email": "priya.sharma@example.com"
+      }
+    },
+    "academicInfo": {
+      "stream": "Science",
+      "subjects": [
+        {
+          "name": "Mathematics",
+          "code": "041",
+          "teacher": "Mrs. Sunita Gupta"
+        },
+        {
+          "name": "Science",
+          "code": "086",
+          "teacher": "Mr. Rakesh Verma"
+        },
+        {
+          "name": "Social Science",
+          "code": "087",
+          "teacher": "Mrs. Anjali Khanna"
+        },
+        {
+          "name": "English",
+          "code": "184",
+          "teacher": "Mr. Sunil Mehta"
+        },
+        {
+          "name": "Hindi",
+          "code": "002",
+          "teacher": "Mrs. Deepa Singh"
+        }
+      ]
+    },
+    "performanceData": {
+      "attendance": {
+        "present": 210,
+        "total": 220,
+        "percentage": 95.45
+      },
+      "examResults": [
+        {
+          "term": "First Term",
+          "subjects": [
+            { "name": "Mathematics", "marks": 92, "maxMarks": 100 },
+            { "name": "Science", "marks": 88, "maxMarks": 100 },
+            { "name": "Social Science", "marks": 85, "maxMarks": 100 },
+            { "name": "English", "marks": 90, "maxMarks": 100 },
+            { "name": "Hindi", "marks": 87, "maxMarks": 100 }
+          ],
+          "total": 442,
+          "percentage": 88.4,
+          "grade": "A+"
+        },
+        {
+          "term": "Second Term",
+          "subjects": [
+            { "name": "Mathematics", "marks": 94, "maxMarks": 100 },
+            { "name": "Science", "marks": 90, "maxMarks": 100 },
+            { "name": "Social Science", "marks": 88, "maxMarks": 100 },
+            { "name": "English", "marks": 92, "maxMarks": 100 },
+            { "name": "Hindi", "marks": 89, "maxMarks": 100 }
+          ],
+          "total": 453,
+          "percentage": 90.6,
+          "grade": "A+"
+        }
+      ]
+    },
+    "extracurricular": {
+      "clubs": [
+        "Science Club",
+        "Coding Club"
+      ],
+      "sports": [
+        "Cricket",
+        "Chess"
+      ],
+      "achievements": [
+        "First place in Inter-school Science Exhibition 2023",
+        "Certificate of Excellence in National Mathematics Olympiad",
+        "School Representative for District Level Debate Competition"
+      ]
+    },
+    "feeDetails": {
+      "totalFees": 85000,
+      "paid": 65000,
+      "pending": 20000,
+      "dueDate": "2023-11-30",
+      "paymentHistory": [
+        {
+          "date": "2023-04-15",
+          "amount": 35000,
+          "mode": "Online Transfer",
+          "receiptNo": "FEE2023/0421"
+        },
+        {
+          "date": "2023-07-20",
+          "amount": 30000,
+          "mode": "Cheque",
+          "receiptNo": "FEE2023/0789"
+        }
+      ]
+    }
+  }

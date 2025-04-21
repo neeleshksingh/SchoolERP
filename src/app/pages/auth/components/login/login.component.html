@@ -1,0 +1,250 @@
+<div class="bg-gradient-to-br from-sky-100 via-blue-50 to-teal-100 flex items-center justify-center min-h-screen min-w-screen overflow-hidden py-8 relative">
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+    <div class="particle particle-5"></div>
+    <div class="particle particle-6"></div>
+    <div class="particle particle-7"></div>
+    <div class="particle particle-8"></div>
+    <div class="particle particle-9"></div>
+    <div class="particle particle-10"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col items-center justify-center w-full max-w-lg mx-4 bg-white/80 backdrop-blur-lg rounded-3xl p-1 shadow-lg border border-white/50">
+    <div class="w-full bg-transparent rounded-3xl p-8">
+      <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+          <div class="bg-gradient-to-r from-sky-400 to-teal-400 p-4 rounded-full transform hover:scale-110 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+          </div>
+        </div>
+        <h1 class="text-slate-800 text-3xl font-extrabold tracking-tight">{{title || 'School ERP Portal'}}</h1>
+        <p class="text-slate-600 mt-2 text-sm font-light">{{slogan || 'Unlock the Future of School Management'}}</p>
+      </div>
+
+      <div class="flex mb-6 bg-slate-100/80 rounded-full p-1">
+        <button 
+          [class.bg-white]="currentMode === LoginMode.DEFAULT"
+          [class.text-slate-800]="currentMode === LoginMode.DEFAULT"
+          [class.text-slate-500]="currentMode !== LoginMode.DEFAULT"
+          class="flex-1 py-2 px-4 rounded-full font-medium transition-all duration-300"
+          (click)="switchMode(LoginMode.DEFAULT)">
+          Username Login
+        </button>
+        <button 
+          [class.bg-white]="currentMode === LoginMode.OTP"
+          [class.text-slate-800]="currentMode === LoginMode.OTP"
+          [class.text-slate-500]="currentMode !== LoginMode.OTP"
+          class="flex-1 py-2 px-4 rounded-full font-medium transition-all duration-300"
+          (click)="switchMode(LoginMode.OTP)">
+          OTP Login
+        </button>
+      </div>
+
+      <div *ngIf="loginMessage" class="mb-4 text-center text-red-600 text-sm">{{loginMessage}}</div>
+
+      <div *ngIf="currentMode === LoginMode.DEFAULT" class="animate-slideIn">
+        <form [formGroup]="defaultLoginForm" (ngSubmit)="onDefaultLoginSubmit()">
+          <div class="mb-4">
+            <label for="userName" class="block text-slate-700 text-sm font-medium mb-2">Username</label>
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                <i class="pi pi-user text-blue-600"></i>
+              </span>
+              <input pInputText id="userName" formControlName="userName" type="text" class="w-full bg-white/70 border-blue-200 text-slate-800 placeholder-slate-400" placeholder="Enter your username">
+            </div>
+            <small *ngIf="defaultLoginForm.get('userName')?.touched && defaultLoginForm.get('userName')?.hasError('required')" class="text-red-600">Username is required</small>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="block text-slate-700 text-sm font-medium mb-2">Password</label>
+            <p-password formControlName="password" [toggleMask]="true" [feedback]="false" [inputStyle]="{'width':'100%', 'background':'rgba(255,255,255,0.7)', 'border-color':'rgba(191,219,254,1)', 'color':'#1e293b'}" styleClass="w-full" placeholder="Enter your password">
+              <ng-template pTemplate="header">
+                <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                  <i class="pi pi-lock text-blue-600"></i>
+                </span>
+              </ng-template>
+            </p-password>
+            <small *ngIf="defaultLoginForm.get('password')?.touched && defaultLoginForm.get('password')?.hasError('required')" class="text-red-600">Password is required</small>
+          </div>
+
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center">
+              <p-checkbox [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}" [binary]="true" inputId="rememberMe" styleClass="text-slate-700"></p-checkbox>
+              <label for="rememberMe" class="ml-2 text-sm text-slate-700">Remember me</label>
+            </div>
+            <button type="button" class="text-blue-600 text-sm font-medium hover:text-blue-800 transition-colors" (click)="switchMode(LoginMode.FORGOT_PASSWORD)">
+              Forgot password?
+            </button>
+          </div>
+
+          <p-button type="submit" [loading]="isLoading" styleClass="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600" label="Sign In"></p-button>
+        </form>
+      </div>
+
+      <div *ngIf="currentMode === LoginMode.OTP" class="animate-slideIn">
+        <form [formGroup]="otpLoginForm" (ngSubmit)="onOTPLoginSubmit()">
+          <div class="mb-4">
+            <label for="phoneNumber" class="block text-slate-700 text-sm font-medium mb-2">Phone Number</label>
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                <i class="pi pi-phone text-blue-600"></i>
+              </span>
+              <input pInputText id="phoneNumber" formControlName="phoneNumber" type="text" maxlength="10" class="w-full bg-white/70 border-blue-200 text-slate-800 placeholder-slate-400" placeholder="Enter your 10-digit phone number">
+            </div>
+            <small *ngIf="otpLoginForm.get('phoneNumber')?.touched && otpLoginForm.get('phoneNumber')?.hasError('required')" class="text-red-600">Phone number is required</small>
+            <small *ngIf="otpLoginForm.get('phoneNumber')?.touched && otpLoginForm.get('phoneNumber')?.hasError('pattern')" class="text-red-600">Please enter a valid 10-digit phone number</small>
+          </div>
+
+          <div class="mb-4">
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-slate-700 text-sm font-medium">One-Time Password</label>
+              <button 
+                type="button" 
+                class="text-blue-600 text-sm font-medium hover:text-blue-800 transition-colors" 
+                (click)="requestLoginOTP()"
+                [disabled]="!otpLoginForm.get('phoneNumber')?.valid || isLoading">
+                Request OTP
+              </button>
+            </div>
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                <i class="pi pi-lock text-blue-600"></i>
+              </span>
+              <input 
+                pInputText 
+                id="otp-input" 
+                type="text" 
+                maxlength="6" 
+                placeholder="Enter 6-digit OTP" 
+                class="w-full bg-white/70 border-blue-200 text-slate-800 placeholder-slate-400"
+                formControlName="otp">
+            </div>
+            <small *ngIf="otpLoginForm.get('otp')?.touched && otpLoginForm.get('otp')?.hasError('required')" class="text-red-600">OTP is required</small>
+            <small *ngIf="otpLoginForm.get('otp')?.touched && otpLoginForm.get('otp')?.hasError('pattern')" class="text-red-600">Please enter a valid 6-digit OTP</small>
+          </div>
+
+          <div class="flex gap-3">
+            <p-button 
+              type="button" 
+              styleClass="w-full p-button-outlined border-blue-200 text-slate-700 hover:bg-blue-50" 
+              label="Back" 
+              (click)="switchMode(LoginMode.DEFAULT)">
+            </p-button>
+            <p-button 
+              type="submit" 
+              [loading]="isLoading" 
+              styleClass="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600" 
+              label="Verify & Sign In">
+            </p-button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="currentMode === LoginMode.FORGOT_PASSWORD" class="animate-slideIn">
+        <div class="mb-4 text-center">
+          <h2 class="text-slate-800 text-lg font-semibold">Reset Password</h2>
+          <p class="text-slate-600 text-sm">
+            {{ forgotPasswordStep === ForgotPasswordStep.USERNAME ? 'Enter your username to receive OTP' : 
+               forgotPasswordStep === ForgotPasswordStep.OTP ? 'Enter the OTP sent to your email' : 
+               'Create a new password' }}
+          </p>
+        </div>
+
+        <form [formGroup]="forgotPasswordForm">
+          <div *ngIf="forgotPasswordStep === ForgotPasswordStep.USERNAME">
+            <div class="mb-6">
+              <label for="username" class="block text-slate-700 text-sm font-medium mb-2">Username</label>
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                  <i class="pi pi-user text-blue-600"></i>
+                </span>
+                <input pInputText id="username" formControlName="username" class="w-full bg-white/70 border-blue-200 text-slate-800 placeholder-slate-400" placeholder="Enter your username">
+              </div>
+              <small *ngIf="forgotPasswordForm.get('username')?.touched && forgotPasswordForm.get('username')?.hasError('required')" class="text-red-600">Username is required</small>
+            </div>
+          </div>
+
+          <div *ngIf="forgotPasswordStep === ForgotPasswordStep.OTP">
+            <div class="mb-6">
+              <div class="mb-2">
+                <label class="block text-slate-700 text-sm font-medium">One-Time Password</label>
+                <p class="text-xs text-slate-600">Enter the 6-digit code sent to your email</p>
+              </div>
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                  <i class="pi pi-lock text-blue-600"></i>
+                </span>
+                <input 
+                  pInputText 
+                  id="fp-otp-input" 
+                  type="text" 
+                  maxlength="6" 
+                  placeholder="Enter 6-digit OTP" 
+                  class="w-full bg-white/70 border-blue-200 text-slate-800 placeholder-slate-400"
+                  formControlName="otp">
+              </div>
+              <small *ngIf="forgotPasswordForm.get('otp')?.touched && forgotPasswordForm.get('otp')?.hasError('required')" class="text-red-600">OTP is required</small>
+              <small *ngIf="forgotPasswordForm.get('otp')?.touched && forgotPasswordForm.get('otp')?.hasError('pattern')" class="text-red-600">Please enter a valid 4-digit OTP</small>
+            </div>
+          </div>
+
+          <div *ngIf="forgotPasswordStep === ForgotPasswordStep.NEW_PASSWORD">
+            <div class="mb-4">
+              <label for="newPassword" class="block text-slate-700 text-sm font-medium mb-2">New Password</label>
+              <p-password id="newPassword" formControlName="newPassword" [toggleMask]="true" [inputStyle]="{'width':'100%', 'background':'rgba(255,255,255,0.7)', 'border-color':'rgba(191,219,254,1)', 'color':'#1e293b'}" styleClass="w-full" placeholder="Create a new password">
+                <ng-template pTemplate="header">
+                  <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                    <i class="pi pi-lock text-blue-600"></i>
+                  </span>
+                </ng-template>
+              </p-password>
+              <small *ngIf="forgotPasswordForm.get('newPassword')?.touched && forgotPasswordForm.get('newPassword')?.hasError('required')" class="text-red-600">New password is required</small>
+              <small *ngIf="forgotPasswordForm.get('newPassword')?.touched && forgotPasswordForm.get('newPassword')?.hasError('minlength')" class="text-red-600">Password must be at least 6 characters</small>
+            </div>
+
+            <div class="mb-6">
+              <label for="confirmPassword" class="block text-slate-700 text-sm font-medium mb-2">Confirm Password</label>
+              <p-password id="confirmPassword" formControlName="confirmPassword" [toggleMask]="true" [feedback]="false" [inputStyle]="{'width':'100%', 'background':'rgba(255,255,255,0.7)', 'border-color':'rgba(191,219,254,1)', 'color':'#1e293b'}" styleClass="w-full" placeholder="Confirm your new password">
+                <ng-template pTemplate="header">
+                  <span class="p-inputgroup-addon bg-blue-100 border-blue-200">
+                    <i class="pi pi-lock text-blue-600"></i>
+                  </span>
+                </ng-template>
+              </p-password>
+              <small *ngIf="forgotPasswordForm.get('confirmPassword')?.touched && forgotPasswordForm.get('confirmPassword')?.hasError('required')" class="text-red-600">Please confirm your password</small>
+              <small *ngIf="forgotPasswordForm.hasError('passwordMismatch') && forgotPasswordForm.get('confirmPassword')?.touched" class="text-red-600">Passwords do not match</small>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <p-button 
+              type="button" 
+              styleClass="w-full p-button-outlined border-blue-200 text-slate-700 hover:bg-blue-50" 
+              label="Back" 
+              (click)="forgotPasswordStep !== ForgotPasswordStep.USERNAME ? forgotPasswordStep = forgotPasswordStep === ForgotPasswordStep.OTP ? ForgotPasswordStep.USERNAME : ForgotPasswordStep.OTP : switchMode(LoginMode.DEFAULT)">
+            </p-button>
+            <p-button 
+              type="button" 
+              [loading]="isLoading" 
+              styleClass="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600" 
+              [label]="forgotPasswordStep === ForgotPasswordStep.NEW_PASSWORD ? 'Reset Password' : 'Continue'"
+              (click)="submitForgotPasswordStep()">
+            </p-button>
+          </div>
+        </form>
+      </div>
+
+      <div class="mt-8 pt-4 text-center">
+        <p class="text-slate-600 text-sm font-light">
+          {{supportEmailId ? 'Support: ' + supportEmailId + ' | ' : ''}}© 2025 Neowins. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

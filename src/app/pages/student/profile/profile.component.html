@@ -1,0 +1,315 @@
+<div class="mx-auto">
+  <!-- Header Card with Basic Info -->
+  <div class="shadow-lg w-full mb-4">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="profile-image-container mr-4">
+          <p-avatar [image]="student.personalInfo.photoUrl" size="xlarge"
+            [style]="{ 'width': '8rem', 'height': '8rem' }" shape="circle" class="shadow-lg">
+            <ng-template pTemplate="avatar">
+              <span class="text-4xl">{{getInitials(student.personalInfo.name)}}</span>
+            </ng-template>
+          </p-avatar>
+        </div>
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">{{student.personalInfo.name}}</h1>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <div class="flex items-center mb-2">
+                <i class="pi pi-id-card mr-2 text-blue-500"></i>
+                <span class="font-semibold mr-2 text-gray-700 dark:text-gray-300">ID:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{student.personalInfo.id}}</span>
+              </div>
+              <div class="flex items-center mb-2">
+                <i class="pi pi-book mr-2 text-blue-500"></i>
+                <span class="font-semibold mr-2 text-gray-700 dark:text-gray-300">Class:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{student.personalInfo.class}} - {{student.personalInfo.section}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center mb-2">
+                <i class="pi pi-calendar mr-2 text-blue-500"></i>
+                <span class="font-semibold mr-2 text-gray-700 dark:text-gray-300">Roll No:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{student.personalInfo.rollNumber}}</span>
+              </div>
+              <div class="flex items-center mb-2">
+                <i class="pi pi-book mr-2 text-blue-500"></i>
+                <span class="font-semibold mr-2 text-gray-700 dark:text-gray-300">Stream:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{student.academicInfo.stream}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center mb-2">
+                <i class="pi pi-calendar mr-2 text-blue-500"></i>
+                <span class="font-semibold mr-2 text-gray-700 dark:text-gray-300">Admission Date:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{student.personalInfo.admissionDate | date:'mediumDate'}}</span>
+              </div>
+              <div class="flex items-center mb-2">
+                <i class="pi pi-verified mr-2 text-blue-500"></i>
+                <span class="font-semibold mr-2 text-gray-700 dark:text-gray-300">Admission No:</span>
+                <span class="text-gray-600 dark:text-gray-400">{{student.personalInfo.admissionNumber}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p-tag [value]="'Active'" severity="success" [rounded]="true"></p-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="shadow-lg w-full">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+      <p-tabView>
+        <!-- Personal Information Tab -->
+        <p-tabPanel header="Personal Information">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
+            <!-- Personal Details -->
+            <div class="lg:col-span-6">
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 h-full">
+                <h4 class="text-xl font-medium mb-4 text-gray-900 dark:text-white">Personal Details</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Full Name</label>
+                    <p class="m-0 text-gray-600 dark:text-gray-400">{{student.personalInfo.name}}</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Date of Birth</label>
+                    <p class="m-0 text-gray-600 dark:text-gray-400">{{student.personalInfo.dateOfBirth | date:'mediumDate'}}</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Gender</label>
+                    <p class="m-0 text-gray-600 dark:text-gray-400">{{student.personalInfo.gender}}</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Blood Group</label>
+                    <p class="m-0 text-gray-600 dark:text-gray-400">{{student.personalInfo.bloodGroup}}</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Email</label>
+                    <p class="m-0 text-gray-600 dark:text-gray-400">{{student.contactInfo.email}}</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Phone Number</label>
+                    <p class="m-0 text-gray-600 dark:text-gray-400">{{student.contactInfo.phone}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Address and Parents Information -->
+            <div class="lg:col-span-3">
+              <!-- Address Information -->
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                <h4 class="text-xl font-medium mb-4 text-gray-900 dark:text-white">Address Information</h4>
+                <div class="text-gray-600 dark:text-gray-400">
+                  <div class="mb-2">{{student.contactInfo.address.line1}}</div>
+                  <div class="mb-2">{{student.contactInfo.address.line2}}</div>
+                  <div class="mb-2">{{student.contactInfo.address.city}}, {{student.contactInfo.address.state}}</div>
+                  <div>{{student.contactInfo.address.pincode}}</div>
+                </div>
+              </div>
+
+              <!-- Parents Information -->
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h4 class="text-xl font-medium mb-4 text-gray-900 dark:text-white">Parents Information</h4>
+                <p-divider align="left">
+                  <div class="inline-flex items-center">
+                    <i class="pi pi-user mr-2 text-blue-500"></i>
+                    <b class="text-gray-900 dark:text-white">Father</b>
+                  </div>
+                </p-divider>
+                <div class="mb-3">
+                  <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Name</label>
+                  <p class="m-0 text-gray-600 dark:text-gray-400">{{student.parentInfo.father.name}}</p>
+                </div>
+                <div class="mb-3">
+                  <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Occupation</label>
+                  <p class="m-0 text-gray-600 dark:text-gray-400">{{student.parentInfo.father.occupation}}</p>
+                </div>
+                <div class="mb-3">
+                  <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Contact</label>
+                  <p class="m-0 text-gray-600 dark:text-gray-400">{{student.parentInfo.father.phone}}</p>
+                </div>
+
+                <p-divider align="left">
+                  <div class="inline-flex items-center">
+                    <i class="pi pi-user mr-2 text-blue-500"></i>
+                    <b class="text-gray-900 dark:text-white">Mother</b>
+                  </div>
+                </p-divider>
+                <div class="mb-3">
+                  <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Name</label>
+                  <p class="m-0 text-gray-600 dark:text-gray-400">{{student.parentInfo.mother.name}}</p>
+                </div>
+                <div class="mb-3">
+                  <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Occupation</label>
+                  <p class="m-0 text-gray-600 dark:text-gray-400">{{student.parentInfo.mother.occupation}}</p>
+                </div>
+                <div class="mb-3">
+                  <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Contact</label>
+                  <p class="m-0 text-gray-600 dark:text-gray-400">{{student.parentInfo.mother.phone}}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Extracurricular Activities -->
+            <div class="lg:col-span-3">
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 h-full">
+                <h4 class="text-xl font-medium mb-4 text-gray-900 dark:text-white">Extracurricular Activities</h4>
+                <h5 class="m-0 mb-2 font-medium text-gray-700 dark:text-gray-300">Clubs</h5>
+                <p-chip *ngFor="let club of student.extracurricular.clubs" [label]="club" class="mr-2 mb-2"></p-chip>
+
+                <h5 class="m-0 mb-2 mt-4 font-medium text-gray-700 dark:text-gray-300">Sports</h5>
+                <p-chip *ngFor="let sport of student.extracurricular.sports" [label]="sport" class="mr-2 mb-2"></p-chip>
+
+                <h5 class="m-0 mb-2 mt-4 font-medium text-gray-700 dark:text-gray-300">Achievements</h5>
+                <ul class="list-none p-0 m-0">
+                  <li *ngFor="let achievement of student.extracurricular.achievements"
+                    class="flex items-center mb-2 text-gray-600 dark:text-gray-400">
+                    <i class="pi pi-check-circle text-blue-500 mr-2"></i>
+                    <span>{{achievement}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <!-- Academic Tab -->
+        <p-tabPanel header="Academic Information">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2">
+              <!-- Subjects Information -->
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-4">
+                <h4 class="text-xl font-medium mb-3 text-gray-900 dark:text-white">Subjects & Teachers</h4>
+                <div class="overflow-x-auto">
+                  <p-table [value]="student.academicInfo.subjects" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th class="text-gray-700 dark:text-gray-300">Subject Name</th>
+                        <th class="text-gray-700 dark:text-gray-300">Subject Code</th>
+                        <th class="text-gray-700 dark:text-gray-300">Teacher</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-subject>
+                      <tr>
+                        <td class="text-gray-600 dark:text-gray-400">{{subject.name}}</td>
+                        <td class="text-gray-600 dark:text-gray-400">{{subject.code}}</td>
+                        <td class="text-gray-600 dark:text-gray-400">{{subject.teacher}}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+ argue              </div>
+
+              <!-- Exam Results -->
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h4 class="text-xl font-medium mb-3 text-gray-900 dark:text-white">Academic Performance</h4>
+                <p-tabView>
+                  <p-tabPanel *ngFor="let term of student.performanceData.examResults" [header]="term.term">
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="font-medium text-gray-700 dark:text-gray-300">Overall Grade: </span>
+                      <p-tag [value]="term.grade" [severity]="getGradeSeverity(term.grade)"></p-tag>
+                    </div>
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="font-medium text-gray-700 dark:text-gray-300">Percentage: </span>
+                      <span class="text-lg font-semibold text-gray-900 dark:text-white">{{term.percentage}}%</span>
+                    </div>
+                    <div *ngFor="let subject of term.subjects" class="mb-3">
+                      <div class="flex justify-between items-center mb-1">
+                        <span class="text-gray-600 dark:text-gray-400">{{subject.name}}</span>
+                        <span class="font-medium text-gray-900 dark:text-white">{{subject.marks}}/{{subject.maxMarks}}</span>
+                      </div>
+                      <p-progressBar [value]="(subject.marks / subject.maxMarks) * 100" [showValue]="false"
+                        [style]="{'height': '8px'}"
+                        [class]="getSubjectProgressClass((subject.marks / subject.maxMarks) * 100)">
+                      </p-progressBar>
+                    </div>
+                  </p-tabPanel>
+                </p-tabView>
+              </div>
+            </div>
+
+            <div>
+              <!-- Attendance Information -->
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-4">
+                <h4 class="text-xl font-medium mb-3 text-gray-900 dark:text-white">Attendance</h4>
+                <p-progressBar [value]="student.performanceData.attendance.percentage" [showValue]="true"
+                  [style]="{'height': '12px'}"
+                  [class]="getAttendanceClass(student.performanceData.attendance.percentage)">
+                </p-progressBar>
+                <div class="text-sm mt-2 text-gray-600 dark:text-gray-400">{{student.performanceData.attendance.present}} out of
+                  {{student.performanceData.attendance.total}} days</div>
+              </div>
+
+              <!-- Achievements -->
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h4 class="text-xl font-medium mb-3 text-gray-900 dark:text-white">Academic Achievements</h4>
+                <ul class="list-none p-0 m-0">
+                  <li *ngFor="let achievement of student.extracurricular.achievements"
+                    class="flex items-center mb-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <i class="pi pi-trophy text-yellow-500 mr-3 text-xl"></i>
+                    <span class="text-gray-600 dark:text-gray-400">{{achievement}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <!-- Fees Tab -->
+        <p-tabPanel header="Fee Information">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h4 class="text-xl font-medium mb-3 text-gray-900 dark:text-white">Fee Status</h4>
+                <p-progressBar [value]="(student.feeDetails.paid / student.feeDetails.totalFees) * 100"
+                  [showValue]="true" [style]="{'height': '12px'}" class="custom-progress-bar">
+                </p-progressBar>
+                <div class="grid grid-cols-3 gap-4 mt-4">
+                  <div>
+                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Total Fees</div>
+                    <div class="text-xl font-bold text-gray-900 dark:text-white">₹{{student.feeDetails.totalFees}}</div>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Paid</div>
+                    <div class="text-xl font-bold text-green-500">₹{{student.feeDetails.paid}}</div>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Pending</div>
+                    <div class="text-xl font-bold text-orange-500">₹{{student.feeDetails.pending}}</div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <p-tag *ngIf="student.feeDetails.pending > 0" severity="warn"
+                    [value]="'Due by ' + (student.feeDetails.dueDate | date:'mediumDate')"></p-tag>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h4 class="text-xl font-medium mb-3 text-gray-900 dark:text-white">Payment History</h4>
+                <p-timeline [value]="student.feeDetails.paymentHistory" align="left">
+                  <ng-template pTemplate="content" let-payment>
+                    <div class="flex justify-between items-center">
+                      <div>
+                        <span class="font-medium text-gray-900 dark:text-white">₹{{payment.amount}}</span>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 m-0">Receipt: {{payment.receiptNo}}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 m-0">Mode: {{payment.mode}}</p>
+                      </div>
+                      <span class="text-sm text-gray-600 dark:text-gray-400">{{payment.date | date:'mediumDate'}}</span>
+                    </div>
+                  </ng-template>
+                </p-timeline>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

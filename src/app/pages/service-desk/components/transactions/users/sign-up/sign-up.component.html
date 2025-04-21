@@ -1,0 +1,181 @@
+<div class="card w-full p-4">
+    <p-toast></p-toast>
+    
+    <p-card header="User Registration" styleClass="shadow-lg">
+      <form [formGroup]="signupForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- User Information Section -->
+        <div class="col-span-full">
+          <p-divider align="left">
+            <span class="text-lg font-semibold text-primary">User Information</span>
+          </p-divider>
+        </div>
+        
+        <div class="p-field">
+          <label for="userId" class="block font-medium mb-2">User ID*</label>
+          <input id="userId" type="text" pInputText formControlName="userId" class="w-full" placeholder="Enter User ID" />
+          <small *ngIf="signupForm.get('userId')?.invalid && signupForm.get('userId')?.touched" class="p-error">User ID is required</small>
+        </div>
+        
+        <div class="p-field">
+          <label for="userName" class="block font-medium mb-2">Username*</label>
+          <input id="userName" type="text" pInputText formControlName="userName" class="w-full" placeholder="Enter username" />
+          <small *ngIf="signupForm.get('userName')?.invalid && signupForm.get('userName')?.touched" class="p-error">Username is required</small>
+        </div>
+        
+        <div class="p-field">
+          <label for="password" class="block font-medium mb-2">Password*</label>
+          <p-password id="password" formControlName="password" [toggleMask]="true" styleClass="w-full" placeholder="Enter password"></p-password>
+          <small *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="p-error">
+            Password is required and must be at least 8 characters
+          </small>
+        </div>
+        
+        <!-- Personal Information Section -->
+        <div class="col-span-full">
+          <p-divider align="left">
+            <span class="text-lg font-semibold text-primary">Personal Information</span>
+          </p-divider>
+        </div>
+        
+        <div class="p-field">
+          <label for="firstName" class="block font-medium mb-2">First Name*</label>
+          <input id="firstName" type="text" pInputText formControlName="firstName" class="w-full" placeholder="Enter first name" />
+          <small *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched" class="p-error">First name is required</small>
+        </div>
+        
+        <div class="p-field">
+          <label for="middleName" class="block font-medium mb-2">Middle Name</label>
+          <input id="middleName" type="text" pInputText formControlName="middleName" class="w-full" placeholder="Enter middle name" />
+        </div>
+        
+        <div class="p-field">
+          <label for="lastName" class="block font-medium mb-2">Last Name*</label>
+          <input id="lastName" type="text" pInputText formControlName="lastName" class="w-full" placeholder="Enter last name" />
+          <small *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched" class="p-error">Last name is required</small>
+        </div>
+        
+        <div class="p-field">
+          <label for="displayName" class="block font-medium mb-2">Display Name</label>
+          <input id="displayName" type="text" pInputText formControlName="displayName" class="w-full" placeholder="Enter display name" />
+        </div>
+        
+        <div class="p-field">
+          <label for="phoneNumber" class="block font-medium mb-2">Phone Number*</label>
+          <p-inputMask id="phoneNumber" mask="9999999999" formControlName="phoneNumber" placeholder="Enter 10-digit phone number" class="w-full"></p-inputMask>
+          <small *ngIf="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched" class="p-error">
+            Valid phone number is required
+          </small>
+        </div>
+        
+        <div class="p-field">
+          <label for="email" class="block font-medium mb-2">Email*</label>
+          <input id="email" type="email" pInputText formControlName="email" class="w-full" placeholder="Enter email" />
+          <small *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="p-error">
+            Valid email is required
+          </small>
+        </div>
+        
+        <div class="p-field">
+          <label for="gender" class="block font-medium mb-2">Gender</label>
+          <p-dropdown id="gender" [options]="genderOptions" formControlName="gender" placeholder="Select gender" 
+            [filter]="true" styleClass="w-full" [showClear]="true"></p-dropdown>
+        </div>
+        
+        <div class="p-field">
+          <label for="dateOfBirth" class="block font-medium mb-2">Date of Birth</label>
+          <p-calendar id="dateOfBirth" formControlName="dateOfBirth" 
+            [showIcon]="true" styleClass="w-full" placeholder="Select date"></p-calendar>
+        </div>
+        
+        <div class="p-field">
+          <label for="maritalStatus" class="block font-medium mb-2">Marital Status</label>
+          <p-dropdown id="maritalStatus" [options]="maritalStatusOptions" formControlName="maritalStatus" 
+           [filter]="true"  placeholder="Select status" styleClass="w-full" [showClear]="true"></p-dropdown>
+        </div>
+        
+        <div class="p-field">
+            <label for="profileImage" class="block font-medium mb-2">Profile Image</label>
+            <div class="flex flex-col space-y-3">
+              <!-- Image preview area -->
+              <div *ngIf="previewImageSrc" class="mb-2">
+                <p-image [src]="previewImageSrc" alt="Profile Image Preview" width="150" [preview]="true"></p-image>
+              </div>
+              
+              <!-- File upload component -->
+              <p-fileUpload #fileUpload mode="basic" chooseLabel="Select Image" 
+                            [showUploadButton]="false" [showCancelButton]="false" 
+                            accept="image/*" [maxFileSize]="1000000" 
+                            (onSelect)="onImageUpload($event)" styleClass="w-full">
+              </p-fileUpload>
+              
+              <!-- Clear button appears only when an image is selected -->
+              <button *ngIf="previewImageSrc" pButton pRipple type="button" label="Clear" 
+                      class="p-button-outlined p-button-danger w-full p-button-raised" 
+                      (click)="onImageClear()"></button>
+            </div>
+          </div>
+        
+        <!-- Preferences Section -->
+        <div class="col-span-full">
+          <p-divider align="left">
+            <span class="text-lg font-semibold text-primary">Preferences</span>
+          </p-divider>
+        </div>
+        
+        <div class="p-field">
+          <label for="country" class="block font-medium mb-2">Country</label>
+          <p-dropdown id="country" [options]="countryOptions" formControlName="country" 
+          [filter]="true" placeholder="Select country" styleClass="w-full" [showClear]="true"></p-dropdown>
+        </div>
+        
+        <!-- System Information Section -->
+        <div class="col-span-full">
+          <p-divider align="left">
+            <span class="text-lg font-semibold text-primary">System Information</span>
+          </p-divider>
+        </div>
+        
+        <div class="p-field">
+          <label for="roles" class="block font-medium mb-2">Roles</label>
+          <p-multiSelect id="roles" [options]="roleOptions" formControlName="roles" 
+          [filter]="true" optionLabel="label" defaultLabel="Select roles" styleClass="w-full"></p-multiSelect>
+        </div>
+        
+        <div class="p-field">
+          <label for="status" class="block font-medium mb-2">Status</label>
+          <p-dropdown id="status" [options]="statusOptions" formControlName="status" 
+          [filter]="true" placeholder="Select status" styleClass="w-full"></p-dropdown>
+        </div>
+        
+        <!-- Submit Button Section -->
+        <div class="col-span-full flex justify-end mt-4 space-x-2">
+          <button pButton pRipple type="button" label="Clear" class="p-button-outlined p-button-secondary p-button-raised" 
+                  (click)="signupForm.reset()"></button>
+          <button pButton pRipple type="button" label="Register" class="p-button-primary p-button-raised" 
+                  [disabled]="loading" (click)="onSendOTP()"></button>
+        </div>
+      </form>
+    </p-card>
+    
+    <!-- OTP Dialog -->
+    <p-dialog [(visible)]="showOtpDialog" [style]="{width: '450px'}" header="OTP Verification" 
+              [modal]="true" [draggable]="false" [resizable]="false">
+      <div class="p-fluid">
+        <p class="mb-4">Please enter the OTP sent to your phone number:</p>
+        <form [formGroup]="otpForm">
+          <div class="p-field mb-4">
+            <p-inputMask id="otp" mask="999999" formControlName="otp" placeholder="Enter 6-digit OTP" 
+                        class="w-full text-center text-xl"></p-inputMask>
+            <small *ngIf="otpForm.get('otp')?.invalid && otpForm.get('otp')?.touched" class="p-error">
+              Please enter a valid 6-digit OTP
+            </small>
+          </div>
+        </form>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Cancel" class="p-button-text p-button-raised" (click)="closeOtpDialog()"></button>
+        <button pButton pRipple type="button" label="Verify" class="p-button-primary p-button-raised" 
+                [disabled]="loading || otpForm.invalid" (click)="onVerifyOTP()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
